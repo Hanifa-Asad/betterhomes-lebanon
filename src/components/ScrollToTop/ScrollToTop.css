@@ -1,0 +1,108 @@
+.scroll-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.progress-ring {
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  width: 70px;
+  height: 70px;
+  pointer-events: none;
+}
+
+.scroll-btn {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, var(--gold) 0%, #e6c12e 100%);
+  color: var(--primary-blue);
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  cursor: pointer;
+  box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
+  position: relative;
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+.scroll-btn:hover {
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+}
+
+.progress-text {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--gold);
+  background-color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  margin-top: -15px;
+}
+
+/* Animation for the arrow */
+.scroll-btn svg {
+  transition: transform 0.3s ease;
+}
+
+.scroll-btn:hover svg {
+  transform: translateY(-3px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .scroll-to-top {
+    bottom: 20px;
+    right: 20px;
+  }
+  
+  .scroll-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 1.1rem;
+  }
+  
+  .progress-ring {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .progress-text {
+    width: 35px;
+    height: 35px;
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .scroll-to-top {
+    bottom: 15px;
+    right: 15px;
+  }
+  
+  .scroll-btn {
+    width: 45px;
+    height: 45px;
+    font-size: 1rem;
+  }
+  
+  .progress-ring {
+    width: 55px;
+    height: 55px;
+  }
+}

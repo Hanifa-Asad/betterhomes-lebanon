@@ -1,0 +1,266 @@
+/* src/components/Header/Header.css */
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  padding: 20px 0;
+}
+
+.header.scrolled {
+  padding: 10px 0;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.98);
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Logo Container */
+.logo-container {
+  display: flex;
+  align-items: center;
+  z-index: 1002;
+}
+
+.logo-link {
+  display: block;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/* SVG Logo Styling - FIXED COLORS */
+.logo-svg {
+  height: 40px;
+  width: auto;
+  transition: all 0.3s ease;
+}
+
+/* Ensure SVG colors don't get overridden */
+.logo-svg path {
+  fill: #1f343f !important; /* Original Betterhomes dark blue color */
+}
+
+.header.scrolled .logo-svg {
+  height: 35px;
+}
+
+/* Desktop Navigation */
+.nav-desktop ul {
+  display: flex;
+  list-style: none;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-link {
+  position: relative;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #1F343F; /* Dark blue text to match logo */
+  cursor: pointer;
+  padding: 10px 0;
+  transition: color 0.3s ease;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  color: #d4af37; /* Gold color on hover */
+}
+
+.nav-link.active {
+  color: #d4af37; /* Gold color when active */
+}
+
+.nav-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #d4af37; /* Gold color */
+  border-radius: 2px;
+}
+
+/* Mobile Toggle */
+.mobile-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #1F343F; /* Dark blue to match logo */
+  cursor: pointer;
+  padding: 5px;
+  z-index: 1001;
+  transition: color 0.3s ease;
+}
+
+.mobile-toggle:hover {
+  color: #d4af37; /* Gold on hover */
+}
+
+/* Mobile Menu */
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(31, 52, 63, 0.95); /* Dark blue overlay */
+  z-index: 999;
+  backdrop-filter: blur(5px);
+}
+
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 100vh;
+  background: linear-gradient(135deg, #1F343F 0%, #0a2540 100%); /* Dark blue gradient */
+  padding: 80px 30px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: -5px 0 30px rgba(0, 0, 0, 0.3);
+}
+
+.mobile-menu-header {
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2); /* Gold border */
+  margin-bottom: 30px;
+}
+
+.mobile-logo {
+  text-align: center;
+}
+
+.mobile-logo .logo-svg {
+  height: 35px;
+}
+
+.mobile-logo .logo-svg path {
+  fill: white !important; /* White logo for dark mobile menu */
+}
+
+.mobile-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mobile-nav-link {
+  display: block;
+  padding: 15px 0;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.mobile-nav-link:hover,
+.mobile-nav-link.active {
+  color: #d4af37; /* Gold color */
+  padding-left: 10px;
+  border-bottom-color: rgba(212, 175, 55, 0.3);
+}
+
+.mobile-menu-footer {
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.coming-soon-badge {
+  display: inline-block;
+  background-color: #d4af37; /* Gold background */
+  color: #1F343F; /* Dark blue text */
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.mobile-menu-footer p {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .nav-desktop {
+    display: none;
+  }
+  
+  .mobile-toggle {
+    display: block;
+  }
+}
+
+@media (max-width: 768px) {
+  .logo-svg {
+    height: 35px;
+  }
+  
+  .header.scrolled .logo-svg {
+    height: 30px;
+  }
+  
+  .mobile-menu {
+    width: 280px;
+    padding: 70px 25px 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 15px 0;
+  }
+  
+  .header.scrolled {
+    padding: 8px 0;
+  }
+  
+  .logo-svg {
+    height: 30px;
+  }
+  
+  .header.scrolled .logo-svg {
+    height: 28px;
+  }
+  
+  .mobile-menu {
+    width: 250px;
+    padding: 60px 20px 30px;
+  }
+  
+  .mobile-logo .logo-svg {
+    height: 30px;
+  }
+  
+  .mobile-nav-link {
+    font-size: 1.1rem;
+    padding: 12px 0;
+  }
+}
