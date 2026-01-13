@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
 import { 
   FaUniversity, 
   FaLandmark, 
@@ -14,16 +13,48 @@ import {
   FaCheckCircle
 } from 'react-icons/fa';
 import { partnersData } from '../../data/constants';
-import { fadeInUp, staggerContainer, scaleIn } from '../../animations';
 import './Partnership.css';
 
 const Partnership = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [autoplay, setAutoplay] = useState(true);
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1
-  });
+  const [isDesktop, setIsDesktop] = useState(true);
+
+  // Check screen size on mount and resize
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsDesktop(window.innerWidth >= 701);
+    };
+    
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
+  // Auto-play only for desktop carousel
+  useEffect(() => {
+    if (!isDesktop) return;
+    
+    let interval;
+    if (autoplay) {
+      interval = setInterval(() => {
+        setCurrentSlide((prev) => (prev + 1) % partnersData.length);
+      }, 3000);
+    }
+    return () => clearInterval(interval);
+  }, [autoplay, isDesktop, partnersData.length]);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % partnersData.length);
+    setAutoplay(false);
+    setTimeout(() => setAutoplay(true), 5000);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + partnersData.length) % partnersData.length);
+    setAutoplay(false);
+    setTimeout(() => setAutoplay(true), 5000);
+  };
 
   const achievements = [
     { year: "2017", title: "CBQ Portfolio", description: "Selected to manage Qatar's largest bank portfolio", icon: <FaUniversity /> },
@@ -40,49 +71,27 @@ const Partnership = () => {
     { name: "Viva Bahriya Tower 24", location: "The Pearl, Qatar", type: "Luxury Residential", year: "2022" }
   ];
 
-  useEffect(() => {
-    let interval;
-    if (autoplay) {
-      interval = setInterval(() => {
-        setCurrentSlide((prev) => (prev + 1) % portfolioItems.length);
-      }, 3000);
+  const getIcon = (id) => {
+    switch(id) {
+      case 1: return <FaUniversity />;
+      case 2: return <FaLandmark />;
+      case 3: return <FaGem />;
+      case 4: return <FaBuilding />;
+      default: return <FaBuilding />;
     }
-    return () => clearInterval(interval);
-  }, [autoplay, portfolioItems.length]);
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % portfolioItems.length);
-    setAutoplay(false);
-    setTimeout(() => setAutoplay(true), 5000);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + portfolioItems.length) % portfolioItems.length);
-    setAutoplay(false);
-    setTimeout(() => setAutoplay(true), 5000);
   };
 
   return (
     <section className="partnership section-padding" id="partnership">
       <div className="container">
-        <motion.div
-          className="section-title"
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-        >
+        <div className="section-title">
           <h2>Regional Partnership</h2>
           <p>Building on success across the GCC region</p>
-        </motion.div>
+        </div>
 
-        <div className="partnership-content" ref={ref}>
+        <div className="partnership-content">
           {/* Partnership Intro */}
-          <motion.div 
-            className="partnership-intro"
-            variants={fadeInUp}
-            initial="hidden"
-            animate={inView ? "visible" : "hidden"}
-          >
+          <div className="partnership-intro">
             <h3>Proven Success in Qatar</h3>
             <p>
               Betterhomes has been selected to manage prestigious property portfolios including CBQ 
@@ -90,136 +99,118 @@ const Partnership = () => {
               at Viva Bahriya Towers in The Pearl, Qatar.
             </p>
             
-            <motion.div 
-              className="region-tags"
-              variants={staggerContainer}
-            >
+            <div className="region-tags">
               {['Qatar', 'UAE', 'Saudi Arabia', 'Lebanon (2026)'].map((region, index) => (
-                <motion.span
+                <span
                   key={region}
                   className={`region-tag ${region.includes('Lebanon') ? 'highlight' : ''}`}
-                  variants={scaleIn}
-                  whileHover={{ scale: 1.1, y: -5 }}
                 >
                   <FaMapMarkerAlt /> {region}
-                </motion.span>
+                </span>
               ))}
-            </motion.div>
-          </motion.div>
-
-          {/* Partners Carousel */}
-          <motion.div 
-            className="partners-carousel-container"
-            variants={staggerContainer}
-            initial="hidden"
-            animate={inView ? "visible" : "hidden"}
-            onMouseEnter={() => setAutoplay(false)}
-            onMouseLeave={() => setAutoplay(true)}
-          >
-            <div className="carousel-header">
-              <h3>Our Portfolio Partners</h3>
-              <p>Trusted by leading institutions</p>
             </div>
-            
-            <div className="carousel-controls">
-              <motion.button 
-                className="carousel-btn prev"
-                onClick={prevSlide}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <FaChevronLeft />
-              </motion.button>
+          </div>
+
+          {/* ========== DESKTOP CAROUSEL (700px+) ========== */}
+          {isDesktop && (
+            <div 
+              className="partners-carousel-container"
+              onMouseEnter={() => setAutoplay(false)}
+              onMouseLeave={() => setAutoplay(true)}
+            >
+              <div className="carousel-header">
+                <h3>Our Portfolio Partners</h3>
+                <p>Trusted by leading institutions</p>
+              </div>
               
-              <div className="partners-carousel">
-                {partnersData.map((partner, index) => (
-                  <motion.div
-                    key={partner.id}
-                    className={`partner-card ${index === currentSlide ? 'active' : ''}`}
-                    variants={fadeInUp}
-                    initial={false}
-                    animate={{
-                      x: (index - currentSlide) * 100 - 50,
-                      scale: index === currentSlide ? 1 : 0.8,
-                      opacity: Math.abs(index - currentSlide) > 1 ? 0 : 1
-                    }}
-                    transition={{ duration: 0.5 }}
-                    whileHover={{ y: -10 }}
-                  >
-                    <motion.div 
-                      className="partner-icon"
-                      animate={index === currentSlide ? { rotate: 360 } : { rotate: 0 }}
-                      transition={{ duration: 0.5 }}
+              <div className="carousel-controls">
+                <button 
+                  className="carousel-btn prev"
+                  onClick={prevSlide}
+                >
+                  <FaChevronLeft />
+                </button>
+                
+                <div className="partners-carousel">
+                  {partnersData.map((partner, index) => (
+                    <div
+                      key={partner.id}
+                      className={`partner-card carousel-card ${index === currentSlide ? 'active' : ''}`}
+                      style={{
+                        transform: `translateX(${(index - currentSlide) * 100 - 50}%) scale(${index === currentSlide ? 1 : 0.8})`,
+                        opacity: Math.abs(index - currentSlide) > 1 ? 0 : 1
+                      }}
                     >
-                      {partner.id === 1 && <FaUniversity />}
-                      {partner.id === 2 && <FaLandmark />}
-                      {partner.id === 3 && <FaGem />}
-                      {partner.id === 4 && <FaBuilding />}
-                    </motion.div>
+                      <div className="partner-icon">
+                        {getIcon(partner.id)}
+                      </div>
+                      <h4>{partner.name}</h4>
+                      <p className="partner-type">{partner.type}</p>
+                      <p className="partner-desc">{partner.description}</p>
+                      
+                      {index === currentSlide && (
+                        <div className="active-indicator">
+                          <FaCheckCircle />
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+                
+                <button 
+                  className="carousel-btn next"
+                  onClick={nextSlide}
+                >
+                  <FaChevronRight />
+                </button>
+              </div>
+              
+              <div className="carousel-dots">
+                {partnersData.map((_, index) => (
+                  <button
+                    key={index}
+                    className={`dot ${index === currentSlide ? 'active' : ''}`}
+                    onClick={() => {
+                      setCurrentSlide(index);
+                      setAutoplay(false);
+                      setTimeout(() => setAutoplay(true), 5000);
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* ========== MOBILE CARDS (0-700px) ========== */}
+          {!isDesktop && (
+            <div className="partners-section">
+              <div className="partners-header">
+                <h3>Our Portfolio Partners</h3>
+                <p>Trusted by leading institutions</p>
+              </div>
+              
+              <div className="mobile-cards">
+                {partnersData.map((partner) => (
+                  <div key={partner.id} className="partner-card mobile-card">
+                    <div className="partner-icon">
+                      {getIcon(partner.id)}
+                    </div>
                     <h4>{partner.name}</h4>
                     <p className="partner-type">{partner.type}</p>
                     <p className="partner-desc">{partner.description}</p>
-                    
-                    {index === currentSlide && (
-                      <motion.div 
-                        className="active-indicator"
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ type: 'spring', stiffness: 200 }}
-                      >
-                        <FaCheckCircle />
-                      </motion.div>
-                    )}
-                  </motion.div>
+                  </div>
                 ))}
               </div>
-              
-              <motion.button 
-                className="carousel-btn next"
-                onClick={nextSlide}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <FaChevronRight />
-              </motion.button>
             </div>
-            
-            <div className="carousel-dots">
-              {portfolioItems.map((_, index) => (
-                <motion.button
-                  key={index}
-                  className={`dot ${index === currentSlide ? 'active' : ''}`}
-                  onClick={() => {
-                    setCurrentSlide(index);
-                    setAutoplay(false);
-                    setTimeout(() => setAutoplay(true), 5000);
-                  }}
-                  whileHover={{ scale: 1.2 }}
-                  whileTap={{ scale: 0.8 }}
-                />
-              ))}
-            </div>
-          </motion.div>
+          )}
 
           {/* Achievements Timeline */}
-          <motion.div 
-            className="achievements"
-            initial={{ opacity: 0, y: 50 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
+          <div className="achievements">
             <h3>Key Achievements</h3>
             
             <div className="achievements-timeline">
               {achievements.map((achievement, index) => (
-                <motion.div
-                  key={index}
-                  className="achievement-item"
-                  initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                  animate={inView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  whileHover={{ scale: 1.05 }}
-                >
+                <div key={index} className="achievement-item">
                   <div className="achievement-year">{achievement.year}</div>
                   <div className="achievement-icon">{achievement.icon}</div>
                   <div className="achievement-content">
@@ -227,39 +218,21 @@ const Partnership = () => {
                     <p>{achievement.description}</p>
                   </div>
                   {index < achievements.length - 1 && (
-                    <motion.div 
-                      className="timeline-connector"
-                      initial={{ scaleY: 0 }}
-                      animate={inView ? { scaleY: 1 } : {}}
-                      transition={{ duration: 0.5, delay: index * 0.1 + 0.3 }}
-                    />
+                    <div className="timeline-connector" />
                   )}
-                </motion.div>
+                </div>
               ))}
             </div>
-          </motion.div>
+          </div>
 
           {/* Portfolio Showcase */}
-          <motion.div 
-            className="portfolio-showcase"
-            variants={staggerContainer}
-            initial="hidden"
-            animate={inView ? "visible" : "hidden"}
-          >
+          <div className="portfolio-showcase">
             <h3>Premium Portfolio</h3>
             <p>Luxury developments managed by Betterhomes</p>
             
             <div className="portfolio-grid">
               {portfolioItems.map((item, index) => (
-                <motion.div
-                  key={index}
-                  className="portfolio-item"
-                  variants={scaleIn}
-                  whileHover={{ 
-                    y: -10,
-                    boxShadow: "0 20px 40px rgba(0,0,0,0.1)"
-                  }}
-                >
+                <div key={index} className="portfolio-item">
                   <div className="portfolio-header">
                     <FaBuilding className="portfolio-icon" />
                     <div className="portfolio-badge">{item.year}</div>
@@ -269,27 +242,16 @@ const Partnership = () => {
                     <p><FaMapMarkerAlt /> {item.location}</p>
                     <p><FaCalendarAlt /> {item.type}</p>
                   </div>
-                  <motion.div 
-                    className="portfolio-status"
-                    animate={{ 
-                      backgroundColor: ['#e8f5e9', '#c8e6c9', '#e8f5e9']
-                    }}
-                    transition={{ duration: 3, repeat: Infinity }}
-                  >
+                  <div className="portfolio-status">
                     ✓ Successfully Launched
-                  </motion.div>
-                </motion.div>
+                  </div>
+                </div>
               ))}
             </div>
-          </motion.div>
+          </div>
 
           {/* Coming to Lebanon */}
-          <motion.div 
-            className="coming-to-lebanon"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={inView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
+          <div className="coming-to-lebanon">
             <div className="coming-content">
               <h3>Coming Soon to Lebanon</h3>
               <p>
@@ -297,39 +259,22 @@ const Partnership = () => {
                 professional governance, and regional expertise to Lebanon's real estate market in 2026.
               </p>
               
-              <motion.div 
-                className="countdown"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.6 }}
-              >
+              <div className="countdown">
                 <div className="countdown-item">
                   <div className="countdown-value">2026</div>
                   <div className="countdown-label">Launch Year</div>
                 </div>
                 
-                <motion.div 
-                  className="countdown-progress"
-                  initial={{ width: 0 }}
-                  animate={{ width: '75%' }}
-                  transition={{ duration: 2, delay: 0.8 }}
-                >
+                <div className="countdown-progress">
                   <div className="progress-text">75% Prepared</div>
-                </motion.div>
-              </motion.div>
+                </div>
+              </div>
             </div>
             
-            <motion.div 
-              className="coming-visual"
-              animate={{ 
-                y: [0, -10, 0],
-                rotate: [0, 5, -5, 0]
-              }}
-              transition={{ duration: 4, repeat: Infinity }}
-            >
+            <div className="coming-visual">
               🇱🇧
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

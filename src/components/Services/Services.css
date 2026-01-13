@@ -589,6 +589,7 @@
   .detail-header {
     flex-direction: column;
     text-align: center;
+    width: 80%;
   }
   
   .process-step {
@@ -654,4 +655,7 @@
     height: 60px;
     font-size: 2rem;
   }
+   /* .our-process h3 {
+    font-size: 1.2rem;
+  } */
 }

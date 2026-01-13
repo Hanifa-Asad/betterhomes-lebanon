@@ -13,6 +13,7 @@
   display: flex;
   flex-direction: column;
   gap: 40px;
+
 }
 
 .contact-intro h3 {
@@ -411,11 +412,17 @@
 
 @media (max-width: 576px) {
   .contact-intro h3 {
-    font-size: 1.8rem;
+    font-size: 1.2rem;
   }
-  
+  .contact-intro {
+    width: 80%;
+  }
+  .contact-cards{
+    /* width: 80%; */
+  }
   .contact-card {
     padding: 20px;
+   
   }
   
   .form-header h3 {
