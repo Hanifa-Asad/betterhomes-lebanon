@@ -195,7 +195,7 @@ const Contact = () => {
                   animate={{ width: '75%' }}
                   transition={{ duration: 2, delay: 0.5 }}
                 >
-                  <span className="progress-text">75% Complete</span>
+                  {/* <span className="progress-text">75% Complete</span> */}
                 </motion.div>
               </div>
               <p className="countdown-text">Target Launch: Q1 2026</p>

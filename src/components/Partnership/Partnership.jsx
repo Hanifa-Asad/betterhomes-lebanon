@@ -266,7 +266,7 @@ const Partnership = () => {
                 </div>
                 
                 <div className="countdown-progress">
-                  <div className="progress-text">75% Prepared</div>
+                  {/* <div className="progress-text">75% Prepared</div> */}
                 </div>
               </div>
             </div>
