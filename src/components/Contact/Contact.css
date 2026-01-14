@@ -416,6 +416,7 @@
   }
   .contact-intro {
     width: 80%;
+    margin: 0 auto;
   }
   .contact-cards{
     /* width: 80%; */

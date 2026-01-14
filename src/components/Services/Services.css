@@ -176,6 +176,7 @@
 .detail-header {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 20px;
   margin-bottom: 40px;
 }
@@ -589,7 +590,7 @@
   .detail-header {
     flex-direction: column;
     text-align: center;
-    width: 80%;
+    /* width: 80%; */
   }
   
   .process-step {
