@@ -24,7 +24,6 @@
   left: -10%;
   width: 120%;
   height: 120%;
-  /* background: url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80') center/cover; */
   background: url('https://images.unsplash.com/photo-1513584684374-8bab748fbf90?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
   opacity: 0.15;
   transition: transform 0.1s ease-out;
@@ -45,6 +44,7 @@
   text-align: center;
   max-width: 900px;
   margin: 0 auto;
+  padding: 0 20px;
 }
 
 /* Coming Soon Badge */
@@ -56,7 +56,7 @@
   border: 2px solid var(--gold);
   border-radius: 50px;
   padding: 10px 25px;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
   cursor: pointer;
 }
 
@@ -65,6 +65,7 @@
   font-size: 1rem;
   margin-right: 10px;
   color: #f8f9fa;
+  white-space: nowrap;
 }
 
 .badge-year {
@@ -75,7 +76,7 @@
 
 /* Hero Title */
 .hero-title-wrapper {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .hero-title {
@@ -83,28 +84,30 @@
   font-weight: 700;
   margin-bottom: 10px;
   line-height: 1.1;
+  white-space: nowrap;
 }
 
 .hero-title-highlight {
-  display: block;
   color: var(--gold);
-  margin-top: 10px;
+  display: inline-block;
 }
 
 .title-line {
   height: 4px;
   background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  margin: 20px auto;
+  margin: 15px auto;
   border-radius: 2px;
+  max-width: 200px;
 }
 
 /* Hero Subtitle */
 .hero-subtitle {
   font-size: 1.3rem;
   max-width: 700px;
-  margin: 0 auto 40px;
+  margin: 0 auto 30px;
   color: rgba(255, 255, 255, 0.9);
   line-height: 1.6;
+  white-space: nowrap;
 }
 
 .highlight-text {
@@ -123,18 +126,21 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 40px;
-  margin: 50px 0;
+  gap: 20px;
+  margin: 40px auto;
+  max-width: 800px;
 }
 
 .stat-item {
   text-align: center;
-  padding: 20px;
+  padding: 20px 15px;
   background: rgba(255, 255, 255, 0.05);
   border-radius: 10px;
   backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.1);
+  flex: 1;
   min-width: 150px;
+  max-width: 180px;
   cursor: pointer;
 }
 
@@ -157,8 +163,16 @@
   display: flex;
   justify-content: center;
   gap: 20px;
-  margin: 40px 0 60px;
+  margin: 30px 0 50px;
   flex-wrap: wrap;
+}
+
+.btn {
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
 }
 
 .btn-primary {
@@ -260,12 +274,13 @@
   }
   
   .hero-stats {
-    gap: 20px;
+    gap: 15px;
   }
   
   .stat-item {
-    min-width: 120px;
-    padding: 15px;
+    min-width: 130px;
+    max-width: 150px;
+    padding: 15px 10px;
   }
   
   .stat-value {
@@ -274,26 +289,156 @@
 }
 
 @media (max-width: 768px) {
-  .hero-title {
-    font-size: 1.5rem;
+  .hero {
+    padding-top: 80px;
+    min-height: 90vh;
   }
   
+  /* Coming Soon Badge - Make single line */
+  .coming-soon-badge {
+    padding: 8px 20px;
+    margin-bottom: 20px;
+    display: inline-flex;
+    white-space: nowrap;
+    max-width: 95%;
+  }
+  
+  .badge-text {
+    font-size: 0.85rem;
+    margin-right: 8px;
+  }
+  
+  .badge-year {
+    font-size: 0.95rem;
+  }
+  
+  /* Hero Title - Single line */
+  .hero-title {
+    font-size: 2rem;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .hero-title-highlight {
+    display: inline;
+  }
+  
+  .title-line {
+    width: 120px !important;
+    margin: 10px auto;
+  }
+  
+  /* Hero Subtitle - Single line */
+  .hero-subtitle {
+    font-size: 0.95rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0 auto 25px;
+    padding: 0 10px;
+  }
+  
+  .highlight-text {
+    margin-left: 5px;
+  }
+  
+  /* Hero Stats - 2 boxes per line, equal width */
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin: 25px auto;
+    max-width: 320px;
+    padding: 0 10px;
+  }
+  
+  .stat-item {
+    min-width: 100%;
+    width: 100%;
+    padding: 12px 8px;
+    margin: 0;
+    max-width: 100%;
+  }
+  
+  .stat-value {
+    font-size: 1.5rem;
+    margin-bottom: 3px;
+  }
+  
+  .stat-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+  }
+  
+  /* Hero Buttons */
   .hero-buttons {
     flex-direction: column;
     align-items: center;
+    gap: 15px;
+    margin: 25px 0 40px;
+    padding: 0 20px;
   }
   
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    max-width: 300px;
+    justify-content: center;
+    /* padding: 12px 25px; */
+    padding: 20px 53px;
+    font-size: 1rem;
+  }
+  
+  /* Hide floating elements on mobile */
   .floating-element-1,
   .floating-element-2,
   .floating-element-3 {
     display: none;
   }
   
+  /* Scroll Indicator */
+  .scroll-indicator span {
+    font-size: 0.8rem;
+  }
+  
+  .scroll-arrow {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 1.8rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 0.85rem;
+  }
+  
+  .coming-soon-badge {
+    padding: 6px 15px;
+  }
+  
+  .badge-text {
+    font-size: 0.75rem;
+  }
+  
+  .badge-year {
+    font-size: 0.85rem;
+  }
+  
   .hero-stats {
+    max-width: 280px;
     gap: 10px;
   }
   
-  .stat-item {
-    min-width: calc(50% - 20px);
+  .stat-value {
+    font-size: 1.3rem;
+  }
+  
+  .stat-label {
+    font-size: 0.7rem;
   }
 }

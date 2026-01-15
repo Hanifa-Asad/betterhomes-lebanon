@@ -8,11 +8,7 @@ import {
   FaMapMarkerAlt, 
   FaGlobe,
   FaPaperPlane,
-  FaCheckCircle,
-  FaFacebook,
-  FaLinkedin,
-  FaInstagram,
-  FaYoutube
+  FaCheckCircle
 } from 'react-icons/fa';
 import { fadeInUp, staggerContainer, scaleIn } from '../../animations';
 import './Contact.css';
@@ -26,7 +22,6 @@ const Contact = () => {
     message: ''
   });
   
-  // ✅ FIXED: Use just the form ID, NOT the full URL
   const [state, handleSubmitFormspree] = useForm("mbddjgpv");
   
   const [ref, inView] = useInView({
@@ -51,12 +46,10 @@ const Contact = () => {
     }));
   };
 
-  // ✅ FIXED: Simplified submit handler
   const handleSubmit = (e) => {
     e.preventDefault();
     handleSubmitFormspree(e);
     
-    // Reset form if successful
     if (state.succeeded) {
       setFormData({
         name: '',
@@ -84,13 +77,6 @@ const Contact = () => {
       title: 'Regional Offices',
       details: ['Qatar (2009)', 'UAE (1986)', 'Saudi Arabia (2025)']
     }
-  ];
-
-  const socialMedia = [
-    { icon: <FaFacebook />, name: 'Facebook', url: '#' },
-    { icon: <FaLinkedin />, name: 'LinkedIn', url: '#' },
-    { icon: <FaInstagram />, name: 'Instagram', url: '#' },
-    { icon: <FaYoutube />, name: 'YouTube', url: '#' }
   ];
 
   return (
@@ -148,36 +134,6 @@ const Contact = () => {
               ))}
             </div>
 
-            {/* Social Media */}
-            <motion.div 
-              className="social-media"
-              variants={fadeInUp}
-            >
-              <h4>Follow Our Journey</h4>
-              <div className="social-icons">
-                {socialMedia.map((social, index) => (
-                  <motion.a
-                    key={index}
-                    href={social.url}
-                    className="social-icon"
-                    whileHover={{ 
-                      scale: 1.2,
-                      y: -5,
-                      backgroundColor: 'var(--gold)',
-                      color: 'var(--primary-blue)'
-                    }}
-                    whileTap={{ scale: 0.9 }}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={inView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ delay: index * 0.1 }}
-                  >
-                    {social.icon}
-                    <span className="tooltip">{social.name}</span>
-                  </motion.a>
-                ))}
-              </div>
-            </motion.div>
-
             {/* Launch Countdown */}
             <motion.div 
               className="launch-countdown"
@@ -215,7 +171,6 @@ const Contact = () => {
               <p>Be the first to know when we launch in Lebanon</p>
             </div>
 
-            {/* ✅ FIXED: Removed action attribute - Formspree handles it */}
             <form 
               className="contact-form" 
               onSubmit={handleSubmit}
@@ -317,7 +272,6 @@ const Contact = () => {
                 />
               </div>
 
-              {/* ✅ ADDED: Hidden fields for Formspree */}
               <input type="hidden" name="_subject" value="BetterHomes Lebanon - Waiting List Request" />
               <input type="text" name="_gotcha" style={{ display: 'none' }} />
 
@@ -337,7 +291,7 @@ const Contact = () => {
                     name="privacy" 
                     required 
                   />
-                  <span>I have read and agree to the privacy policy</span>
+                  <span className='span-check'>I have read and agree to the privacy policy</span>
                 </label>
               </div>
 
@@ -363,7 +317,6 @@ const Contact = () => {
                 )}
               </motion.button>
 
-              {/* Submit Status Messages */}
               <AnimatePresence>
                 {state.succeeded && (
                   <motion.div

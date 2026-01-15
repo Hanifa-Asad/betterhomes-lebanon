@@ -27,62 +27,50 @@ const About = () => {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <h2>About Us</h2>
-          <p>Building on decades of regional excellence</p>
+    
         </motion.div>
 
         <div className="about-content" ref={ref}>
-          {/* Left Column - Text */}
+          {/* Left Column - Text Content */}
           <motion.div 
             className="about-text"
             variants={fadeInUp}
             initial="hidden"
             animate={inView ? "visible" : "hidden"}
           >
-            <motion.h3 variants={fadeInUp}>
-              Regional Excellence, Lebanese Precision
-            </motion.h3>
-            
-            <motion.p variants={fadeInUp}>
-              Betterhomes Lebanon is part of a well-established regional group with a strong presence 
-              across Qatar, the UAE, and Saudi Arabia. Building on this regional experience, we focus 
-              exclusively on Property Management (PM) and Facilities Management (FM), delivering 
-              institutional standards tailored to the Lebanese market.
-            </motion.p>
-            
-            <motion.p variants={fadeInUp}>
-              Our role is to act as a neutral, professional party responsible for the day-to-day 
-              management and protection of real estate assets, ensuring clarity, accountability, 
-              and long-term value for owners and occupiers.
-            </motion.p>
 
-            {/* Vision Card */}
-            <motion.div 
-              className="vision-card"
-              variants={scaleIn}
-              whileHover={{ y: -10, transition: { duration: 0.3 } }}
-            >
-              <div className="vision-icon">
-                <FaEye />
-              </div>
-              <div>
-                <h4>Our Vision</h4>
-                <p>
-                  To become the most trusted Property and Facilities Management Partner in Lebanon, 
-                  recognized for integrity, professional governance and reliable asset stewardship.
-                </p>
-              </div>
-            </motion.div>
+                <div className="about-h1">  <h1>About Us</h1>
+          <h4>Building on decades of regional excellence</h4>
+          </div>
+            <h3>Regional Excellence, Lebanese Precision</h3>
+            
+            <div className="text-content">
+              <p>
+                Betterhomes Lebanon is part of a well-established regional group with a strong presence 
+                across Qatar, the UAE, and Saudi Arabia. Building on this regional experience, we focus 
+                exclusively on Property Management (PM) and Facilities Management (FM), delivering 
+                institutional standards tailored to the Lebanese market.
+              </p>
+              
+              <p>
+                Our role is to act as a neutral, professional party responsible for the day-to-day 
+                management and protection of real estate assets, ensuring clarity, accountability, 
+                and long-term value for owners and occupiers.
+              </p>
+            </div>
           </motion.div>
 
-          {/* Right Column - Timeline */}
+          {/* Right Column - Journey Timeline */}
           <motion.div 
             className="about-timeline"
             variants={staggerContainer}
             initial="hidden"
             animate={inView ? "visible" : "hidden"}
           >
-            <h3>Our Journey</h3>
+            <div className="timeline-header">
+              <h3>Our Journey</h3>
+              <p className="timeline-subtitle">A timeline of regional excellence</p>
+            </div>
             
             <div className="timeline">
               {timelineData.map((item, index) => (
@@ -90,23 +78,42 @@ const About = () => {
                   key={index}
                   className={`timeline-item ${item.highlight ? 'highlight' : ''}`}
                   variants={fadeInUp}
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={{ scale: 1.02 }}
                 >
-                  <div className="timeline-icon">
-                    {item.icon}
-                  </div>
-                  <div className="timeline-content">
+                  <div className="timeline-left">
+                    <div className="timeline-icon">
+                      {item.icon}
+                    </div>
                     <div className="timeline-year">{item.year}</div>
-                    <div className="timeline-event">{item.event}</div>
                   </div>
-                  {index < timelineData.length - 1 && (
-                    <div className="timeline-connector" />
-                  )}
+                  <div className="timeline-event">{item.event}</div>
                 </motion.div>
               ))}
             </div>
           </motion.div>
         </div>
+
+        {/* Full Width Vision Card */}
+        <motion.div 
+          className="vision-card-wrapper"
+          variants={fadeInUp}
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
+          transition={{ delay: 0.3 }}
+        >
+          <div className="vision-card">
+            <div className="vision-icon">
+              <FaEye />
+            </div>
+            <div className="vision-content">
+              <h3>Our Vision</h3>
+              <p>
+                To become the most trusted Property and Facilities Management Partner in Lebanon, 
+                recognized for integrity, professional governance and reliable asset stewardship.
+              </p>
+            </div>
+          </div>
+        </motion.div>
 
         {/* Stats */}
         <motion.div 
@@ -120,13 +127,13 @@ const About = () => {
             { value: '4', label: 'Countries', suffix: '' },
             { value: '50', label: 'Premium Properties', suffix: '+' },
             { value: '2', label: 'Major Banks', suffix: '' },
-            { value: '100', label: 'Client', suffix: '%' }
+            { value: '100', label: 'Client Satisfaction', suffix: '%' }
           ].map((stat, index) => (
             <motion.div 
               key={index}
-              className="stat-card"
+              className={`stat-card ${index === 4 ? 'last-stat' : ''}`}
               whileHover={{ 
-                scale: 1.1,
+                scale: 1.05,
                 backgroundColor: 'rgba(212, 175, 55, 0.1)'
               }}
               whileTap={{ scale: 0.95 }}

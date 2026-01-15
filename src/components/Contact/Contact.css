@@ -13,7 +13,6 @@
   display: flex;
   flex-direction: column;
   gap: 40px;
-
 }
 
 .contact-intro h3 {
@@ -64,55 +63,6 @@
   color: var(--text-light);
   font-size: 0.95rem;
   margin-bottom: 5px;
-}
-
-/* Social Media */
-.social-media h4 {
-  font-size: 1.3rem;
-  margin-bottom: 20px;
-  color: var(--primary-blue);
-}
-
-.social-icons {
-  display: flex;
-  gap: 15px;
-}
-
-.social-icon {
-  position: relative;
-  width: 50px;
-  height: 50px;
-  background-color: var(--light-gray);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.3rem;
-  color: var(--primary-blue);
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-.social-icon .tooltip {
-  position: absolute;
-  bottom: -40px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: var(--primary-blue);
-  color: white;
-  padding: 5px 10px;
-  border-radius: 4px;
-  font-size: 0.8rem;
-  white-space: nowrap;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-}
-
-.social-icon:hover .tooltip {
-  opacity: 1;
-  visibility: visible;
-  bottom: -35px;
 }
 
 /* Launch Countdown */
@@ -209,6 +159,7 @@
   font-weight: 600;
   color: var(--primary-blue);
   font-size: 0.95rem;
+  text-align: left;
 }
 
 .form-input,
@@ -250,25 +201,36 @@
 
 .form-options {
   margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .checkbox-label {
   display: flex;
   align-items: flex-start;
-  gap: 10px;
-  margin-bottom: 15px;
+  gap: 12px;
   cursor: pointer;
   font-size: 0.9rem;
   color: var(--text-light);
+  line-height: 1.4;
+  width: 100%;
+  
 }
 
+
 .checkbox-label input[type="checkbox"] {
-  margin-top: 3px;
+  margin-top: 2px;
   accent-color: var(--gold);
   width: 18px;
   height: 18px;
   flex-shrink: 0;
+  cursor: pointer;
 }
+
+/* .checkbox-label span {
+  flex: 1;
+} */
 
 .submit-btn {
   width: 100%;
@@ -285,6 +247,7 @@
   justify-content: center;
   gap: 10px;
   transition: all 0.3s ease;
+  margin-top: 10px;
 }
 
 .submit-btn:disabled {
@@ -340,7 +303,7 @@
 
 /* Form Footer */
 .form-footer {
-  margin-top: 40px;
+  margin-top: 30px;
   padding-top: 30px;
   border-top: 1px solid var(--medium-gray);
 }
@@ -354,20 +317,23 @@
 
 .form-stats {
   display: flex;
-  gap: 30px;
+  gap: 40px;
   justify-content: center;
 }
 
 .stat {
   text-align: center;
+  flex: 1;
+  max-width: 150px;
 }
 
 .stat-number {
   display: block;
-  font-size: 1.8rem;
+  font-size: 2.2rem;
   font-weight: 700;
   color: var(--gold);
   margin-bottom: 5px;
+  line-height: 1;
 }
 
 .stat-label {
@@ -376,6 +342,7 @@
   color: var(--text-light);
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  line-height: 1.2;
 }
 
 /* Responsive */
@@ -388,6 +355,10 @@
   .contact-form-container {
     padding: 30px;
   }
+  
+  .form-stats {
+    gap: 30px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -399,37 +370,95 @@
   .form-stats {
     flex-direction: column;
     gap: 20px;
+    align-items: center;
   }
   
-  .social-icons {
-    justify-content: center;
+  .stat {
+    max-width: 200px;
+    width: 100%;
   }
   
   .contact-form-container {
-    padding: 20px;
+    padding: 25px;
+  }
+  
+  .checkbox-label {
+    align-items: flex-start;
+  }
+  
+  .checkbox-label input[type="checkbox"] {
+    margin-top: 3px;
   }
 }
 
 @media (max-width: 576px) {
   .contact-intro h3 {
-    font-size: 1.2rem;
+    font-size: 1.6rem;
   }
-  .contact-intro {
-    width: 80%;
-    margin: 0 auto;
+  
+  .contact-intro p {
+    font-size: 1rem;
   }
-  .contact-cards{
-    /* width: 80%; */
-  }
+  
   .contact-card {
     padding: 20px;
-   
   }
   
   .form-header h3 {
     font-size: 1.6rem;
   }
+  
+  .form-header p {
+    font-size: 1rem;
+  }
+  
+  .form-input,
+  .form-select,
+  .form-textarea {
+    padding: 12px;
+  }
+  
+  .submit-btn {
+    padding: 16px;
+    font-size: 1rem;
+  }
+  
+  .checkbox-label {
+    font-size: 0.85rem;
+    gap: 10px;
+  }
+  
+  .form-options {
+    gap: 12px;
+  }
+  
+  .form-footer p {
+    font-size: 0.85rem;
+  }
+  
+  .stat-number {
+    font-size: 1.8rem;
+  }
+  
+  .stat-label {
+    font-size: 0.85rem;
+  }
 }
+
+@media (max-width: 400px) {
+  .contact-form-container {
+    padding: 20px;
+  }
+  
+  /* .checkbox-label {
+    font-size: 0.8rem;
+  } */
+  
+  .stat-number {
+    font-size: 1.6rem;
+  }
+}
+
 /* Your existing spinner should work fine */
 .spinner {
   width: 20px;
@@ -440,6 +469,7 @@
   animation: spin 1s linear infinite;
   margin-right: 10px;
 }
+
 /* Add to your existing Contact.css if needed */
 .formspree-error {
   color: #dc3545;

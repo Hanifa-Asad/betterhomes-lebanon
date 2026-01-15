@@ -39,7 +39,7 @@
 
 .region-tag {
   background-color: white;
-  padding: 10px 20px;
+  padding: 12px 24px;
   border-radius: 25px;
   font-weight: 600;
   display: flex;
@@ -47,17 +47,26 @@
   gap: 8px;
   box-shadow: var(--shadow);
   transition: all 0.3s ease;
+  border: 2px solid transparent;
+  cursor: pointer;
+
+  width: 175px;
+  justify-content: center;
+}
+
+.region-tag:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
 .region-tag.highlight {
   background-color: var(--gold);
   color: var(--primary-blue);
+  border-color: var(--light-gold);
 }
 
-/* ========== DESKTOP (700px+) ========== */
-/* Show carousel only on desktop */
-@media (min-width: 701px) {
-  /* Carousel Container */
+/* ========== IMPROVED DESKTOP CAROUSEL ========== */
+@media (min-width: 768px) {
   .partners-carousel-container {
     position: relative;
     padding: 40px 0;
@@ -65,7 +74,7 @@
 
   .carousel-header {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
   }
 
   .carousel-header h3 {
@@ -79,61 +88,73 @@
     font-size: 1.1rem;
   }
 
+  .carousel-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
   .carousel-controls {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 20px;
     position: relative;
-    height: 300px;
+    height: 350px;
   }
 
   .partners-carousel {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .carousel-track {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 80%;
     height: 100%;
     position: relative;
-    perspective: 1000px;
   }
 
-  /* Desktop Carousel Cards */
+  /* Improved Carousel Cards */
   .partner-card.carousel-card {
     position: absolute;
     background-color: white;
-    border-radius: 16px;
+    border-radius: 20px;
     padding: 40px 30px;
     text-align: center;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    width: 280px;
-    height: 100%;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    width: 320px;
+    height: 320px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    transition: all 0.5s ease;
     z-index: 1;
+    transition: all 0.5s ease;
   }
 
   .partner-card.carousel-card.active {
     z-index: 3;
-    box-shadow: 0 20px 50px rgba(26, 54, 93, 0.2);
+    box-shadow: 0 25px 60px rgba(26, 54, 93, 0.25);
+    border: 2px solid var(--gold);
   }
 
   .carousel-btn {
     background-color: white;
     border: none;
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     color: var(--primary-blue);
     cursor: pointer;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     z-index: 4;
     transition: all 0.3s ease;
   }
@@ -141,24 +162,29 @@
   .carousel-btn:hover {
     background-color: var(--gold);
     color: white;
+    transform: scale(1.1);
   }
 
   .carousel-dots {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin-top: 30px;
+    gap: 12px;
+    margin-top: 40px;
   }
 
   .dot {
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
     background-color: var(--medium-gray);
     border: none;
     cursor: pointer;
     transition: all 0.3s ease;
     padding: 0;
+  }
+
+  .dot:hover {
+    transform: scale(1.2);
   }
 
   .dot.active {
@@ -173,12 +199,17 @@
     color: var(--gold);
     font-size: 1.2rem;
     background-color: rgba(212, 175, 55, 0.1);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+    padding: 8px 12px;
+    border-radius: 20px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .active-indicator svg {
+    font-size: 1rem;
   }
 
   /* Hide mobile cards on desktop */
@@ -187,9 +218,8 @@
   }
 }
 
-/* ========== MOBILE (0-700px) ========== */
-/* Show simple cards only on mobile */
-@media (max-width: 700px) {
+/* ========== MOBILE CARDS ========== */
+@media (max-width: 767px) {
   .partners-section {
     padding: 20px 0;
   }
@@ -213,20 +243,26 @@
   /* Mobile Cards Grid */
   .mobile-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    place-items: center;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    justify-items: center;
   }
 
   .partner-card.mobile-card {
     background-color: white;
     border-radius: 16px;
-    padding: 30px 20px;
+    padding: 35px 25px;
     text-align: center;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    width: 100%;
+    max-width: 320px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+  }
+
+  .partner-card.mobile-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-10px);
   }
 
   /* Hide desktop carousel on mobile */
@@ -235,26 +271,27 @@
   }
 }
 
-/* Common styles for both desktop and mobile cards */
+/* Common styles for both desktop and mobile cards - SAME SIZE ICONS */
 .partner-icon {
   font-size: 3rem;
   color: var(--gold);
   margin-bottom: 25px;
-  width: 80px;
-  height: 80px;
+  width: 90px;
+  height: 90px;
   background-color: rgba(212, 175, 55, 0.1);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0 auto 25px;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 767px) {
   .partner-icon {
-    font-size: 2.5rem;
-    width: 70px;
-    height: 70px;
-    margin-bottom: 20px;
+    font-size: 2.8rem;
+    width: 90px;
+    height: 90px;
+    margin-bottom: 25px;
   }
 }
 
@@ -264,16 +301,16 @@
   color: var(--primary-blue);
 }
 
-@media (max-width: 700px) {
+@media (max-width: 767px) {
   .partner-card h4 {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
   }
 }
 
 .partner-type {
   color: var(--gold);
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-bottom: 15px;
@@ -281,22 +318,17 @@
 
 .partner-desc {
   color: var(--text-light);
-  font-size: 0.95rem;
+  font-size: 1rem;
   line-height: 1.6;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 767px) {
   .partner-desc {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
   }
 }
 
-/* ========== ACHIEVEMENTS SECTION (YOUR ORIGINAL STYLING) ========== */
-/* Achievements Timeline */
-.achievements {
-  margin-top: 60px;
-}
-
+/* ========== ACHIEVEMENTS SECTION ========== */
 .achievements h3 {
   text-align: center;
   font-size: 2.2rem;
@@ -315,10 +347,16 @@
   align-items: center;
   margin-bottom: 40px;
   position: relative;
-  padding: 20px;
+  padding: 25px;
   background-color: white;
-  border-radius: 12px;
+  border-radius: 16px;
   box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+}
+
+.achievement-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
 .achievement-year {
@@ -372,7 +410,7 @@
   transform-origin: top;
 }
 
-/* Portfolio Showcase */
+/* ========== PORTFOLIO SHOWCASE - ONE LINE ========== */
 .portfolio-showcase {
   text-align: center;
 }
@@ -389,20 +427,48 @@
   font-size: 1.1rem;
 }
 
-.portfolio-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+.portfolio-container {
+  overflow-x: auto;
+  padding: 20px 0;
+  margin: 0 -20px;
+  padding: 20px;
+}
+
+.portfolio-container::-webkit-scrollbar {
+  height: 6px;
+}
+
+.portfolio-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.portfolio-container::-webkit-scrollbar-thumb {
+  background: var(--gold);
+  border-radius: 3px;
+}
+
+.portfolio-scroll {
+  display: flex;
   gap: 25px;
+  padding: 10px;
+  min-width: min-content;
 }
 
 .portfolio-item {
   background-color: white;
-  border-radius: 12px;
-  padding: 30px;
+  border-radius: 16px;
+  padding: 30px 25px;
   box-shadow: var(--shadow);
   text-align: left;
-  position: relative;
-  overflow: hidden;
+  min-width: 280px;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.portfolio-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
 .portfolio-header {
@@ -420,9 +486,9 @@
 .portfolio-badge {
   background-color: var(--primary-blue);
   color: white;
-  padding: 5px 12px;
+  padding: 6px 15px;
   border-radius: 15px;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-weight: 600;
 }
 
@@ -430,6 +496,7 @@
   font-size: 1.3rem;
   margin-bottom: 15px;
   color: var(--primary-blue);
+  line-height: 1.4;
 }
 
 .portfolio-details {
@@ -445,6 +512,11 @@
   margin-bottom: 8px;
 }
 
+.portfolio-details svg {
+  color: var(--gold);
+  font-size: 0.9rem;
+}
+
 .portfolio-status {
   background-color: #e8f5e9;
   color: #2e7d32;
@@ -452,127 +524,223 @@
   border-radius: 20px;
   font-size: 0.85rem;
   font-weight: 600;
-  display: inline-block;
-}
-
-/* Coming to Lebanon */
-.coming-to-lebanon {
-  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
-  border-radius: 20px;
-  padding: 60px;
-  color: white;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 8px;
+}
+
+.portfolio-status svg {
+  font-size: 0.9rem;
+}
+
+/* ========== COMING TO LEBANON - CLEAN DESIGN ========== */
+.coming-to-lebanon {
+  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+  border-radius: 24px;
+  padding: 60px;
+  color: white;
+  text-align: center;
   position: relative;
   overflow: hidden;
 }
 
+.coming-to-lebanon::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
 .coming-content {
-  flex: 1;
-  max-width: 600px;
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.coming-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: rgba(212, 175, 55, 0.2);
+  color: var(--gold);
+  padding: 10px 24px;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 30px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(212, 175, 55, 0.3);
 }
 
 .coming-content h3 {
   font-size: 2.5rem;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   color: white;
 }
 
-.coming-content p {
+.coming-description {
   font-size: 1.2rem;
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 30px;
+  margin-bottom: 45px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.countdown {
+.launch-highlights {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+  margin-bottom: 45px;
+}
+
+.highlight-item {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 25px;
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.highlight-item:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-8px);
+}
+
+.highlight-icon {
+  font-size: 2.2rem;
+  color: var(--gold);
+  margin-bottom: 15px;
+  width: 60px;
+  height: 60px;
+  background-color: rgba(212, 175, 55, 0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.highlight-content h4 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  color: white;
+}
+
+.highlight-content p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.launch-timeline {
   background-color: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
-  border-radius: 15px;
-  padding: 25px;
-  margin-top: 30px;
+  border-radius: 16px;
+  padding: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-align: left;
 }
 
-.countdown-item {
-  text-align: center;
-  margin-bottom: 20px;
+.timeline-item {
+  display: flex;
+  align-items: center;
+  gap: 25px;
 }
 
-.countdown-value {
-  font-size: 3.5rem;
+.timeline-year1 {
+  background: linear-gradient(135deg, var(--gold), var(--light-gold));
+  color: var(--primary-blue);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
   font-weight: 700;
-  color: var(--gold);
-  margin-bottom: 10px;
+  flex-shrink: 0;
+  box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
 }
 
-.countdown-label {
-  font-size: 1.1rem;
+.timeline-content {
+  flex: 1;
+}
+
+.timeline-content h4 {
+  font-size: 1.4rem;
+  margin-bottom: 8px;
+  color: white;
+}
+
+.timeline-content p {
   color: rgba(255, 255, 255, 0.8);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.countdown-progress {
-  height: 10px;
-  background-color: rgba(255, 255, 255, 0.2);
-  border-radius: 5px;
-  overflow: hidden;
-  position: relative;
-}
-
-.countdown-progress::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  background: linear-gradient(90deg, var(--gold), var(--light-gold));
-  border-radius: 5px;
-}
-
-.progress-text {
-  position: absolute;
-  top: -25px;
-  right: 0;
-  font-size: 0.9rem;
-  color: var(--gold);
-  font-weight: 600;
-}
-
-.coming-visual {
-  font-size: 8rem;
-  margin-left: 40px;
-  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
 }
 
 /* ========== RESPONSIVE ADJUSTMENTS ========== */
+@media (max-width: 1200px) {
+  .coming-to-lebanon {
+    padding: 50px;
+  }
+  
+  .achievement-item {
+    padding: 25px 20px;
+  }
+  
+  .portfolio-scroll {
+    gap: 20px;
+  }
+}
+
 @media (max-width: 992px) {
   .partnership-content {
     gap: 60px;
   }
   
   .coming-to-lebanon {
-    flex-direction: column;
-    text-align: center;
     padding: 40px;
-  }
-  
-  .coming-visual {
-    margin-left: 0;
-    margin-top: 30px;
-    font-size: 6rem;
   }
   
   .achievement-item {
     flex-direction: column;
     text-align: center;
+    padding: 25px 20px;
   }
   
   .achievement-year,
   .achievement-icon {
     margin-right: 0;
     margin-bottom: 15px;
+  }
+  
+  .timeline-connector {
+    display: none;
+  }
+  
+  .portfolio-scroll {
+    gap: 20px;
+  }
+  
+  .launch-highlights {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+  
+  .timeline-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
   }
 }
 
@@ -586,16 +754,35 @@
     margin-bottom: 30px;
   }
   
-  .portfolio-grid {
-    grid-template-columns: 1fr;
+  .portfolio-showcase h3 {
+    font-size: 1.8rem;
   }
   
   .coming-content h3 {
     font-size: 2rem;
   }
   
-  .coming-content p {
+  .coming-description {
     font-size: 1rem;
+  }
+  
+  .portfolio-container {
+    margin: 0 -15px;
+    padding: 15px;
+  }
+  
+  .portfolio-scroll {
+    gap: 15px;
+  }
+  
+  .portfolio-item {
+    min-width: 260px;
+    padding: 25px 20px;
+  }
+  
+  .launch-highlights {
+    grid-template-columns: 1fr;
+    gap: 15px;
   }
 }
 
@@ -611,6 +798,12 @@
   .region-tags {
     flex-direction: column;
     align-items: center;
+  }
+  
+  .region-tag {
+    width: 100%;
+    max-width: 250px;
+    justify-content: center;
   }
   
   .achievements h3 {
@@ -629,36 +822,39 @@
     font-size: 1.6rem;
   }
   
-  .coming-visual {
-    font-size: 4rem;
-  }
-  
-  .countdown-value {
-    font-size: 2.5rem;
-  }
-  
-  .countdown-label {
+  .coming-badge {
+    padding: 8px 20px;
     font-size: 0.9rem;
+  }
+  
+  .timeline-year1 {
+    width: 70px;
+    height: 70px;
+    font-size: 1.6rem;
   }
 }
 
 @media (max-width: 400px) {
   .partner-card.mobile-card {
+    padding: 25px 20px;
+  }
+  
+  .portfolio-item {
+    min-width: 240px;
     padding: 20px 15px;
-    width: 88%;
   }
   
-  .partner-icon {
-    width: 60px;
-    height: 60px;
-    font-size: 2rem;
+  .highlight-item {
+    padding: 20px;
   }
   
-  .partner-card h4 {
-    font-size: 1.3rem;
+  .highlight-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.8rem;
   }
   
-  .coming-to-lebanon {
-    padding: 20px 15px;
+  .highlight-content h4 {
+    font-size: 1.2rem;
   }
 }

@@ -2,7 +2,7 @@ import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './Services.css';
 
-// Import ALL necessary icons - fix the undefined FaArrowRight error
+// Import ALL necessary icons
 import { 
   FaBuilding, 
   FaTools, 
@@ -17,10 +17,12 @@ import {
   FaMoneyBillWave, 
   FaHeadset,
   FaChevronRight, 
-  FaArrowRight  // This was missing!
+  FaArrowRight,
+  FaChartBar,
+  FaBalanceScale
 } from 'react-icons/fa';
 
-// Define animations - fix the undefined staggerContainer and fadeInUp errors
+// Define animations
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0 }
@@ -41,11 +43,6 @@ const scaleIn = {
   visible: { scale: 1, opacity: 1 }
 };
 
-const slideInUp = {
-  hidden: { y: 50, opacity: 0 },
-  visible: { y: 0, opacity: 1 }
-};
-
 const Services = () => {
   const [activeTab, setActiveTab] = useState('property');
   const [activeDetail, setActiveDetail] = useState(0);
@@ -55,7 +52,7 @@ const Services = () => {
     setIsMounted(true);
   }, []);
 
-  // Memoize service tabs data - fix the undefined serviceTabs error
+  // Memoize service tabs data
   const serviceTabs = useMemo(() => [
     {
       id: 'property',
@@ -154,71 +151,71 @@ const Services = () => {
     ],
     institutional: [
       {
-        icon: <FaClipboardCheck />,
-        title: 'Portfolio Management',
-        description: 'Comprehensive oversight of large property portfolios',
+        icon: <FaChartBar />,
+        title: 'Strategic Portfolio Analysis',
+        description: 'Comprehensive oversight and optimization of large property portfolios',
         features: [
-          'Portfolio performance analysis',
-          'Asset value optimization',
-          'Risk assessment',
-          'Strategic planning'
+          'Performance benchmarking & KPI tracking',
+          'Asset value enhancement strategies',
+          'Risk assessment & mitigation plans',
+          'Market trend analysis & forecasting'
         ]
       },
       {
-        icon: <FaMoneyBillWave />,
-        title: 'Financial Reporting',
-        description: 'Detailed financial insights for institutional stakeholders',
+        icon: <FaBalanceScale />,
+        title: 'Governance & Compliance',
+        description: 'Structured governance frameworks for institutional stakeholders',
         features: [
-          'Custom financial reports',
-          'ROI analysis',
-          'Cash flow management',
-          'Investment tracking'
+          'Customized compliance frameworks',
+          'Audit preparation & support',
+          'Regulatory reporting automation',
+          'Policy development & implementation'
         ]
       },
       {
         icon: <FaHeadset />,
-        title: 'Dedicated Account Management',
-        description: 'Personalized service with dedicated relationship managers',
+        title: 'Executive Account Management',
+        description: 'Dedicated senior-level support for institutional clients',
         features: [
-          '24/7 priority support',
-          'Regular strategy meetings',
-          'Custom service level agreements',
-          'Executive reporting'
+          'Dedicated relationship manager',
+          '24/7 executive support line',
+          'Quarterly strategy reviews',
+          'Custom SLA development'
         ]
       }
     ]
   }), []);
 
-  // Memoize process steps - fix the undefined processSteps error
+  // Memoize process steps
   const processSteps = useMemo(() => [
     {
-      number: '01',
+      number: '1',
       title: 'Assessment',
-      description: 'We conduct a thorough analysis of your property needs and requirements'
+      description: 'Thorough analysis of property needs'
     },
     {
-      number: '02',
+      number: '2',
       title: 'Planning',
-      description: 'Developing a customized management strategy tailored to your goals'
+      description: 'Customized management strategy'
     },
     {
-      number: '03',
+      number: '3',
       title: 'Implementation',
-      description: 'Executing the plan with our team of certified professionals'
+      description: 'Execution by certified professionals'
     },
     {
-      number: '04',
+      number: '4',
       title: 'Monitoring',
-      description: 'Continuous oversight and regular reporting on all aspects'
+      description: 'Continuous oversight & reporting'
     },
     {
-      number: '05',
+      number: '5',
       title: 'Optimization',
-      description: 'Regular reviews and improvements to enhance performance'
+      description: 'Regular reviews & improvements'
     }
   ], []);
 
-  // Memoize event handlers - fix the undefined handleTabChange error
+  // Memoize event handlers
   const handleTabChange = useCallback((tabId) => {
     setActiveTab(tabId);
     setActiveDetail(0);
@@ -285,8 +282,8 @@ const Services = () => {
                 className={`service-tab ${activeTab === tab.id ? 'active' : ''}`}
                 onClick={() => handleTabChange(tab.id)}
                 variants={fadeInUp}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 style={{
                   borderColor: activeTab === tab.id ? tab.color : 'transparent'
                 }}
@@ -311,7 +308,7 @@ const Services = () => {
           </div>
         </motion.div>
 
-        {/* Service Details */}
+        {/* Service Details - Mobile first approach with sidebar on top */}
         <motion.div 
           className="service-details-container"
           initial={{ opacity: 0, y: 20 }}
@@ -319,6 +316,44 @@ const Services = () => {
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.5 }}
         >
+          {/* Mobile Sidebar - Always on top */}
+          <div className="mobile-sidebar">
+            {currentServiceDetails.map((detail, index) => (
+              <motion.button
+                key={index}
+                className={`mobile-detail-btn ${activeDetail === index ? 'active' : ''}`}
+                onClick={() => handleDetailChange(index)}
+                whileHover={{ x: 5 }}
+                whileTap={{ scale: 0.95 }}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <FaChevronRight className="nav-arrow" />
+                <span>{detail.title}</span>
+              </motion.button>
+            ))}
+          </div>
+
+          {/* Desktop Sidebar */}
+          <div className="desktop-sidebar">
+            {currentServiceDetails.map((detail, index) => (
+              <motion.button
+                key={index}
+                className={`detail-nav-btn ${activeDetail === index ? 'active' : ''}`}
+                onClick={() => handleDetailChange(index)}
+                whileHover={{ x: 5 }}
+                whileTap={{ scale: 0.95 }}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <FaChevronRight className="nav-arrow" />
+                <span>{detail.title}</span>
+              </motion.button>
+            ))}
+          </div>
+
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab}
@@ -328,25 +363,6 @@ const Services = () => {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
             >
-              {/* Detail Navigation */}
-              <div className="detail-navigation">
-                {currentServiceDetails.map((detail, index) => (
-                  <motion.button
-                    key={index}
-                    className={`detail-nav-btn ${activeDetail === index ? 'active' : ''}`}
-                    onClick={() => handleDetailChange(index)}
-                    whileHover={{ x: 5 }}
-                    whileTap={{ scale: 0.95 }}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                  >
-                    <FaChevronRight className="nav-arrow" />
-                    <span>{detail.title}</span>
-                  </motion.button>
-                ))}
-              </div>
-
               {/* Detail Content */}
               <div className="detail-content-wrapper">
                 <AnimatePresence mode="wait">
@@ -362,7 +378,7 @@ const Services = () => {
                       <div className="detail-icon">
                         {currentDetail.icon}
                       </div>
-                      <div>
+                      <div className="detail-title-section">
                         <h3>{currentDetail.title}</h3>
                         <p className="detail-description">{currentDetail.description}</p>
                       </div>
@@ -370,19 +386,22 @@ const Services = () => {
 
                     <div className="detail-features">
                       <h4>Key Features:</h4>
-                      <ul>
+                      <div className="features-list">
                         {currentDetail.features.map((feature, i) => (
-                          <motion.li
+                          <motion.div
                             key={i}
+                            className="feature-item"
                             initial={{ opacity: 0, x: -10 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: i * 0.05 }}
                           >
-                            <FaArrowRight className="feature-arrow" />
-                            {feature}
-                          </motion.li>
+                            <div className="feature-check">
+                              <FaArrowRight />
+                            </div>
+                            <span>{feature}</span>
+                          </motion.div>
                         ))}
-                      </ul>
+                      </div>
                     </div>
 
                     {/* Feature Cards */}
@@ -394,7 +413,7 @@ const Services = () => {
                       >
                         <div className="card-icon">✓</div>
                         <h5>Transparent Reporting</h5>
-                        <p>Regular detailed reports on all activities and expenditures</p>
+                        <p>Regular detailed reports on all activities</p>
                       </motion.div>
 
                       <motion.div 
@@ -404,7 +423,7 @@ const Services = () => {
                       >
                         <div className="card-icon">⚡</div>
                         <h5>Quick Response</h5>
-                        <p>24/7 support for emergencies and urgent matters</p>
+                        <p>24/7 support for emergencies</p>
                       </motion.div>
 
                       <motion.div 
@@ -414,7 +433,7 @@ const Services = () => {
                       >
                         <div className="card-icon">📊</div>
                         <h5>Cost Savings</h5>
-                        <p>Proven track record of reducing operational costs</p>
+                        <p>Proven track record of reducing costs</p>
                       </motion.div>
                     </div>
                   </motion.div>
@@ -424,7 +443,7 @@ const Services = () => {
           </AnimatePresence>
         </motion.div>
 
-        {/* Our Process */}
+        {/* Our Process - 2 boxes per row, last centered */}
         <motion.div 
           className="our-process"
           initial={{ opacity: 0, y: 20 }}
@@ -433,33 +452,26 @@ const Services = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <h3>Our 5-Step Management Process</h3>
-          <p className="process-subtitle">A structured approach to ensure excellence in every aspect</p>
+          <p className="process-subtitle">A structured approach to ensure excellence</p>
 
-          <div className="process-steps">
+          <div className="process-steps-grid">
             {processSteps.map((step, index) => (
               <motion.div
                 key={index}
-                className="process-step"
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                className={`process-step-card ${index === 4 ? 'last-step' : ''}`}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
-                whileHover={{ y: -10 }}
+                whileHover={{ y: -8 }}
               >
-                <div className="step-number">{step.number}</div>
+                <div className="step-number-wrapper">
+                  <span className="step-number">{step.number}</span>
+                </div>
                 <div className="step-content">
                   <h4>{step.title}</h4>
                   <p>{step.description}</p>
                 </div>
-                {index < processSteps.length - 1 && (
-                  <motion.div 
-                    className="step-connector"
-                    initial={{ scaleX: 0 }}
-                    whileInView={{ scaleX: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 + 0.3 }}
-                  />
-                )}
               </motion.div>
             ))}
           </div>
@@ -492,8 +504,7 @@ const Services = () => {
           <motion.div 
             className="cta-decoration"
             animate={{ 
-              y: [0, -10, 0],
-              rotate: [0, 5, 0]
+              y: [0, -10, 0]
             }}
             transition={{ duration: 4, repeat: Infinity }}
           >

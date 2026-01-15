@@ -11,6 +11,7 @@
 /* Benefits Grid */
 .benefits-grid {
   display: grid;
+  /* grid-template-columns: repeat(2, 1fr); */
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 30px;
 }
@@ -87,7 +88,7 @@
   font-size: 0.9rem;
 }
 
-/* How We Work */
+/* How We Work - Updated with centered numbers */
 .how-we-work h3 {
   text-align: center;
   font-size: 2.2rem;
@@ -102,10 +103,18 @@
 }
 
 .process-step {
-  display: flex;
-  align-items: center;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.step-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .step-number {
@@ -119,19 +128,23 @@
   justify-content: center;
   font-size: 1.5rem;
   font-weight: 700;
-  margin-right: 30px;
-  flex-shrink: 0;
+  margin-bottom: 20px;
   z-index: 2;
   box-shadow: 0 5px 15px rgba(26, 54, 93, 0.3);
+  position: relative;
 }
 
 .step-content {
   background-color: white;
-  padding: 25px;
+  padding: 30px;
   border-radius: 12px;
   box-shadow: var(--shadow);
-  flex-grow: 1;
+  width: 100%;
+  max-width: 600px;
   border-left: 4px solid var(--gold);
+  text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
 .step-content h4 {
@@ -143,15 +156,17 @@
 .step-content p {
   color: var(--text-light);
   margin-bottom: 0;
+  line-height: 1.6;
 }
 
 .process-connector {
   position: absolute;
-  left: 30px;
+  left: 50%;
   top: 60px;
+  transform: translateX(-50%);
   width: 2px;
   height: 80px;
-  background-color: var(--medium-gray);
+  background: linear-gradient(to bottom, var(--medium-gray), transparent);
   z-index: 1;
   transform-origin: top;
 }
@@ -161,6 +176,7 @@
   text-align: center;
   font-size: 2.2rem;
   margin-bottom: 50px;
+  margin-top: -60px;
   color: var(--primary-blue);
 }
 
@@ -173,7 +189,7 @@
 .principle-card {
   background-color: white;
   border-radius: 12px;
-  padding: 40px 30px;
+  padding: 20px 15px;
   text-align: center;
   box-shadow: var(--shadow);
   border: 1px solid var(--medium-gray);
@@ -266,20 +282,16 @@
   }
   
   .process-step {
-    flex-direction: column;
-    text-align: center;
-    margin-bottom: 60px;
-  }
-  
-  .step-number {
-    margin-right: 0;
     margin-bottom: 20px;
   }
   
+  .step-content {
+    max-width: 90%;
+  }
+  
   .process-connector {
-    left: 50%;
-    top: 60px;
     height: 60px;
+    top: 60px;
   }
 }
 
@@ -295,6 +307,32 @@
   .benefit-card {
     padding: 30px 20px;
   }
+  
+  .how-we-work h3,
+  .principles h3,
+  .client-types h3 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+  
+  .principles h3 {
+    margin-top: -40px;
+  }
+  
+  .step-content {
+    padding: 25px 20px;
+  }
+  
+  .step-number {
+    width: 50px;
+    height: 50px;
+    font-size: 1.3rem;
+  }
+  
+  .process-connector {
+    height: 50px;
+    top: 50px;
+  }
 }
 
 @media (max-width: 576px) {
@@ -305,5 +343,25 @@
   .benefit-stats {
     flex-direction: column;
     gap: 10px;
+  }
+  
+  .step-content {
+    max-width: 100%;
+    padding: 10px 15px;
+  }
+  
+  .step-number {
+    width: 45px;
+    height: 45px;
+    font-size: 1.2rem;
+  }
+  
+  .process-connector {
+    height: 40px;
+    top: 45px;
+  }
+  
+  .why-content {
+    gap: 60px;
   }
 }

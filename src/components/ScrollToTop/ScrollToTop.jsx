@@ -5,7 +5,6 @@ import './ScrollToTop.css';
 
 const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     const toggleVisibility = () => {
@@ -14,14 +13,6 @@ const ScrollToTop = () => {
       } else {
         setIsVisible(false);
       }
-      
-      // Calculate scroll progress
-      const winHeight = window.innerHeight;
-      const docHeight = document.documentElement.scrollHeight;
-      const scrollTop = window.scrollY;
-      const trackLength = docHeight - winHeight;
-      const progress = Math.floor((scrollTop / trackLength) * 100);
-      setScrollProgress(progress);
     };
 
     window.addEventListener('scroll', toggleVisibility);
@@ -45,38 +36,7 @@ const ScrollToTop = () => {
           exit={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.3 }}
         >
-          {/* Progress Ring */}
-          <motion.div 
-            className="progress-ring"
-            initial={{ strokeDashoffset: 283 }}
-            animate={{ strokeDashoffset: 283 - (scrollProgress * 283) / 100 }}
-            transition={{ duration: 0.3 }}
-          >
-            <svg width="60" height="60" viewBox="0 0 100 100">
-              <circle
-                cx="50"
-                cy="50"
-                r="45"
-                fill="none"
-                stroke="rgba(255, 255, 255, 0.2)"
-                strokeWidth="8"
-              />
-              <motion.circle
-                cx="50"
-                cy="50"
-                r="45"
-                fill="none"
-                stroke="var(--gold)"
-                strokeWidth="8"
-                strokeLinecap="round"
-                strokeDasharray="283"
-                strokeDashoffset={283 - (scrollProgress * 283) / 100}
-                transform="rotate(-90 50 50)"
-              />
-            </svg>
-          </motion.div>
-
-          {/* Scroll Button */}
+          {/* Only the scroll button remains */}
           <motion.button
             className="scroll-btn"
             onClick={scrollToTop}
@@ -88,18 +48,6 @@ const ScrollToTop = () => {
           >
             <FaArrowUp />
           </motion.button>
-
-          {/* Progress Text */}
-          <motion.div 
-            className="progress-text"
-            animate={{ 
-              scale: [1, 1.2, 1],
-              color: ['#999', 'var(--gold)', '#999']
-            }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
-            {scrollProgress}%
-          </motion.div>
         </motion.div>
       )}
     </AnimatePresence>

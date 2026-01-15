@@ -10,7 +10,13 @@ import {
   FaChevronLeft,
   FaChevronRight,
   FaCalendarAlt,
-  FaCheckCircle
+  FaCheckCircle,
+  FaChartLine,
+  FaShieldAlt,
+  FaUsers,
+  FaGlobe,
+  FaStar,
+  FaRocket
 } from 'react-icons/fa';
 import { partnersData } from '../../data/constants';
 import './Partnership.css';
@@ -23,7 +29,7 @@ const Partnership = () => {
   // Check screen size on mount and resize
   useEffect(() => {
     const checkScreenSize = () => {
-      setIsDesktop(window.innerWidth >= 701);
+      setIsDesktop(window.innerWidth >= 768);
     };
     
     checkScreenSize();
@@ -101,89 +107,113 @@ const Partnership = () => {
             
             <div className="region-tags">
               {['Qatar', 'UAE', 'Saudi Arabia', 'Lebanon (2026)'].map((region, index) => (
-                <span
+                <motion.span
                   key={region}
                   className={`region-tag ${region.includes('Lebanon') ? 'highlight' : ''}`}
+                  whileHover={{ scale: 1.05, y: -3 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   <FaMapMarkerAlt /> {region}
-                </span>
+                </motion.span>
               ))}
             </div>
           </div>
 
-          {/* ========== DESKTOP CAROUSEL (700px+) ========== */}
+          {/* ========== IMPROVED DESKTOP CAROUSEL ========== */}
           {isDesktop && (
-            <div 
+            <motion.div 
               className="partners-carousel-container"
               onMouseEnter={() => setAutoplay(false)}
               onMouseLeave={() => setAutoplay(true)}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
             >
               <div className="carousel-header">
                 <h3>Our Portfolio Partners</h3>
                 <p>Trusted by leading institutions</p>
               </div>
               
-              <div className="carousel-controls">
-                <button 
-                  className="carousel-btn prev"
-                  onClick={prevSlide}
-                >
-                  <FaChevronLeft />
-                </button>
-                
-                <div className="partners-carousel">
-                  {partnersData.map((partner, index) => (
-                    <div
-                      key={partner.id}
-                      className={`partner-card carousel-card ${index === currentSlide ? 'active' : ''}`}
-                      style={{
-                        transform: `translateX(${(index - currentSlide) * 100 - 50}%) scale(${index === currentSlide ? 1 : 0.8})`,
-                        opacity: Math.abs(index - currentSlide) > 1 ? 0 : 1
-                      }}
-                    >
-                      <div className="partner-icon">
-                        {getIcon(partner.id)}
-                      </div>
-                      <h4>{partner.name}</h4>
-                      <p className="partner-type">{partner.type}</p>
-                      <p className="partner-desc">{partner.description}</p>
-                      
-                      {index === currentSlide && (
-                        <div className="active-indicator">
-                          <FaCheckCircle />
-                        </div>
-                      )}
+              <div className="carousel-wrapper">
+                <div className="carousel-controls">
+                  <button 
+                    className="carousel-btn prev"
+                    onClick={prevSlide}
+                  >
+                    <FaChevronLeft />
+                  </button>
+                  
+                  <div className="partners-carousel">
+                    <div className="carousel-track">
+                      {partnersData.map((partner, index) => (
+                        <motion.div
+                          key={partner.id}
+                          className={`partner-card carousel-card ${index === currentSlide ? 'active' : ''}`}
+                          animate={{
+                            scale: index === currentSlide ? 1 : 0.85,
+                            opacity: index === currentSlide ? 1 : 0.7,
+                            x: `${(index - currentSlide) * 105}%`
+                          }}
+                          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                        >
+                          <div className="partner-icon">
+                            {getIcon(partner.id)}
+                          </div>
+                          <h4>{partner.name}</h4>
+                          <p className="partner-type">{partner.type}</p>
+                          <p className="partner-desc">{partner.description}</p>
+                          
+                          {index === currentSlide && (
+                            <motion.div 
+                              className="active-indicator"
+                              initial={{ scale: 0 }}
+                              animate={{ scale: 1 }}
+                              transition={{ type: "spring" }}
+                            >
+                              <FaCheckCircle />
+                              <span>Active Partner</span>
+                            </motion.div>
+                          )}
+                        </motion.div>
+                      ))}
                     </div>
-                  ))}
+                  </div>
+                  
+                  <button 
+                    className="carousel-btn next"
+                    onClick={nextSlide}
+                  >
+                    <FaChevronRight />
+                  </button>
                 </div>
                 
-                <button 
-                  className="carousel-btn next"
-                  onClick={nextSlide}
-                >
-                  <FaChevronRight />
-                </button>
+                <div className="carousel-dots">
+                  {partnersData.map((_, index) => (
+                    <button
+                      key={index}
+                      className={`dot ${index === currentSlide ? 'active' : ''}`}
+                      onClick={() => {
+                        setCurrentSlide(index);
+                        setAutoplay(false);
+                        setTimeout(() => setAutoplay(true), 5000);
+                      }}
+                    />
+                  ))}
+                </div>
               </div>
-              
-              <div className="carousel-dots">
-                {partnersData.map((_, index) => (
-                  <button
-                    key={index}
-                    className={`dot ${index === currentSlide ? 'active' : ''}`}
-                    onClick={() => {
-                      setCurrentSlide(index);
-                      setAutoplay(false);
-                      setTimeout(() => setAutoplay(true), 5000);
-                    }}
-                  />
-                ))}
-              </div>
-            </div>
+            </motion.div>
           )}
 
-          {/* ========== MOBILE CARDS (0-700px) ========== */}
+          {/* ========== MOBILE CARDS ========== */}
           {!isDesktop && (
-            <div className="partners-section">
+            <motion.div 
+              className="partners-section"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
               <div className="partners-header">
                 <h3>Our Portfolio Partners</h3>
                 <p>Trusted by leading institutions</p>
@@ -191,26 +221,45 @@ const Partnership = () => {
               
               <div className="mobile-cards">
                 {partnersData.map((partner) => (
-                  <div key={partner.id} className="partner-card mobile-card">
+                  <motion.div 
+                    key={partner.id} 
+                    className="partner-card mobile-card"
+                    whileHover={{ y: -10 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
                     <div className="partner-icon">
                       {getIcon(partner.id)}
                     </div>
                     <h4>{partner.name}</h4>
                     <p className="partner-type">{partner.type}</p>
                     <p className="partner-desc">{partner.description}</p>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
-            </div>
+            </motion.div>
           )}
 
           {/* Achievements Timeline */}
-          <div className="achievements">
+          <motion.div 
+            className="achievements"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
             <h3>Key Achievements</h3>
             
             <div className="achievements-timeline">
               {achievements.map((achievement, index) => (
-                <div key={index} className="achievement-item">
+                <motion.div 
+                  key={index} 
+                  className="achievement-item"
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  whileHover={{ scale: 1.02 }}
+                >
                   <div className="achievement-year">{achievement.year}</div>
                   <div className="achievement-icon">{achievement.icon}</div>
                   <div className="achievement-content">
@@ -220,61 +269,113 @@ const Partnership = () => {
                   {index < achievements.length - 1 && (
                     <div className="timeline-connector" />
                   )}
-                </div>
+                </motion.div>
               ))}
             </div>
-          </div>
+          </motion.div>
 
-          {/* Portfolio Showcase */}
-          <div className="portfolio-showcase">
+          {/* Portfolio Showcase - In one line */}
+          <motion.div 
+            className="portfolio-showcase"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
             <h3>Premium Portfolio</h3>
             <p>Luxury developments managed by Betterhomes</p>
             
-            <div className="portfolio-grid">
-              {portfolioItems.map((item, index) => (
-                <div key={index} className="portfolio-item">
-                  <div className="portfolio-header">
-                    <FaBuilding className="portfolio-icon" />
-                    <div className="portfolio-badge">{item.year}</div>
-                  </div>
-                  <h4>{item.name}</h4>
-                  <div className="portfolio-details">
-                    <p><FaMapMarkerAlt /> {item.location}</p>
-                    <p><FaCalendarAlt /> {item.type}</p>
-                  </div>
-                  <div className="portfolio-status">
-                    ✓ Successfully Launched
-                  </div>
-                </div>
-              ))}
+            <div className="portfolio-container">
+              <div className="portfolio-scroll">
+                {portfolioItems.map((item, index) => (
+                  <motion.div 
+                    key={index} 
+                    className="portfolio-item"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, delay: index * 0.1 }}
+                    whileHover={{ y: -10 }}
+                  >
+                    <div className="portfolio-header">
+                      <FaBuilding className="portfolio-icon" />
+                      <div className="portfolio-badge">{item.year}</div>
+                    </div>
+                    <h4>{item.name}</h4>
+                    <div className="portfolio-details">
+                      <p><FaMapMarkerAlt /> {item.location}</p>
+                      <p><FaCalendarAlt /> {item.type}</p>
+                    </div>
+                    <div className="portfolio-status">
+                      <FaCheckCircle /> Successfully Launched
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
             </div>
-          </div>
+          </motion.div>
 
-          {/* Coming to Lebanon */}
-          <div className="coming-to-lebanon">
+          {/* Coming to Lebanon - Enhanced Clean Design */}
+          <motion.div 
+            className="coming-to-lebanon"
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
             <div className="coming-content">
-              <h3>Coming Soon to Lebanon</h3>
-              <p>
-                Building on our GCC success, we're bringing the same institutional standards, 
-                professional governance, and regional expertise to Lebanon's real estate market in 2026.
+              <div className="coming-badge">
+                <FaRocket /> Launching Soon
+              </div>
+              <h3>Expanding to Lebanon in 2026</h3>
+              <p className="coming-description">
+                Building on our unparalleled GCC success, we're bringing institutional-grade property 
+                management, professional governance, and regional expertise to Lebanon's real estate market.
               </p>
               
-              <div className="countdown">
-                <div className="countdown-item">
-                  <div className="countdown-value">2026</div>
-                  <div className="countdown-label">Launch Year</div>
+              <div className="launch-highlights">
+                <div className="highlight-item">
+                  <div className="highlight-icon">
+                    <FaGlobe />
+                  </div>
+                  <div className="highlight-content">
+                    <h4>Regional Expertise</h4>
+                    <p>30+ years of GCC experience</p>
+                  </div>
                 </div>
                 
-                <div className="countdown-progress">
-                  {/* <div className="progress-text">75% Prepared</div> */}
+                <div className="highlight-item">
+                  <div className="highlight-icon">
+                    <FaShieldAlt />
+                  </div>
+                  <div className="highlight-content">
+                    <h4>Professional Governance</h4>
+                    <p>Institutional standards & compliance</p>
+                  </div>
+                </div>
+                
+                <div className="highlight-item">
+                  <div className="highlight-icon">
+                    <FaChartLine />
+                  </div>
+                  <div className="highlight-content">
+                    <h4>Proven Track Record</h4>
+                    <p>50+ premium properties managed</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="launch-timeline">
+                <div className="timeline-item">
+                  <div className="timeline-year1">2026</div>
+                  <div className="timeline-content">
+                    <h4>Lebanon Launch</h4>
+                    <p>Institutional-grade property management services</p>
+                  </div>
                 </div>
               </div>
             </div>
-            
-            <div className="coming-visual">
-              🇱🇧
-            </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

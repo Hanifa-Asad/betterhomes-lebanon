@@ -7,7 +7,6 @@ import {
   FaLinkedin, 
   FaInstagram, 
   FaYoutube,
-  FaTwitter,
   FaMapMarkerAlt,
   FaPhone,
   FaEnvelope,
@@ -44,7 +43,7 @@ const Footer = () => {
     { icon: <FaLinkedin />, label: 'LinkedIn', url: '#' },
     { icon: <FaInstagram />, label: 'Instagram', url: '#' },
     { icon: <FaYoutube />, label: 'YouTube', url: '#' },
-    { icon: <FaTwitter />, label: 'Twitter', url: '#' }
+    { icon: <FaEnvelope />, label: 'Email', url: 'mailto:info@betterhomes-lebanon.com' }
   ];
 
   const scrollToTop = () => {
@@ -79,7 +78,7 @@ const Footer = () => {
                   <FaMapMarkerAlt />
                   <span>Coming soon to Lebanon</span>
                 </div>
-                <div className="contact-item">
+                <div className="contact-item email-item">
                   <FaEnvelope />
                   <span>info@betterhomes-lebanon.com</span>
                 </div>
@@ -144,12 +143,11 @@ const Footer = () => {
                       key={index}
                       variants={fadeInUp}
                       className={`region-item ${region.status}`}
-                      whileHover={{ scale: 1.05 }}
                     >
-                      <FaMapMarkerAlt />
-                      <span>{region.label}</span>
+                      <FaMapMarkerAlt className="region-icon" />
+                      <span className="region-text">{region.label}</span>
                       {region.status === 'coming' && (
-                        <span className="coming-badge">Coming Soon</span>
+                        <span className="coming-badge1">Coming Soon</span>
                       )}
                     </motion.li>
                   ))}
@@ -188,7 +186,7 @@ const Footer = () => {
               </form>
 
               <div className="footer-social">
-                <h5>Follow Us</h5>
+                <h5>Connect With Us</h5>
                 <div className="social-icons">
                   {socialMedia.map((social, index) => (
                     <motion.a
@@ -217,25 +215,27 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Footer Bottom */}
+      {/* Footer Bottom - Centered Content */}
       <div className="footer-bottom">
         <div className="container">
           <div className="footer-bottom-content">
             <motion.div 
-              className="copyright"
+              className="copyright-section"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <p>&copy; {new Date().getFullYear()} Betterhomes Lebanon. Part of the Betterhomes Regional Group.</p>
+              <p className="copyright-year">&copy; 2026 Betterhomes Lebanon. Part of the Betterhomes Regional Group.</p>
               <p className="tagline">Buy. Sell. Rent. Manage. Trust Betterhomes – Your Real Estate Partner.</p>
+              
+              <div className="footer-legal">
+                <a href="#">Privacy Policy</a>
+                <span className="legal-separator">•</span>
+                <a href="#">Terms of Service</a>
+                <span className="legal-separator">•</span>
+                <a href="#">Cookie Policy</a>
+              </div>
             </motion.div>
-
-            <div className="footer-legal">
-              <a href="#">Privacy Policy</a>
-              <a href="#">Terms of Service</a>
-              <a href="#">Cookie Policy</a>
-            </div>
           </div>
         </div>
       </div>

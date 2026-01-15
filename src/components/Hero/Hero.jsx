@@ -113,7 +113,7 @@ const Hero = ({ scrollY }) => {
                 }}
                 transition={{ duration: 3, repeat: Infinity }}
               >
-                Betterhomes <br />
+                Betterhomes 
                 Lebanon
               </motion.span>
             </h1>
