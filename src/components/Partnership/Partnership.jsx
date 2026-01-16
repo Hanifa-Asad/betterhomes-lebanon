@@ -13,9 +13,9 @@ import {
   FaCheckCircle,
   FaChartLine,
   FaShieldAlt,
-  FaUsers,
+  
   FaGlobe,
-  FaStar,
+  
   FaRocket
 } from 'react-icons/fa';
 import { partnersData } from '../../data/constants';

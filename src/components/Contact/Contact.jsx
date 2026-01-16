@@ -4,7 +4,7 @@ import { useInView } from 'react-intersection-observer';
 import { useForm, ValidationError } from '@formspree/react';
 import { 
   FaEnvelope, 
-  FaPhone, 
+
   FaMapMarkerAlt, 
   FaGlobe,
   FaPaperPlane,

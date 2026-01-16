@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { FaHistory, FaEye, FaAward, FaChartLine } from 'react-icons/fa';
-import { fadeInUp, staggerContainer, scaleIn } from '../../animations';
+import { fadeInUp, staggerContainer, } from '../../animations';
 import './About.css';
 
 const About = () => {

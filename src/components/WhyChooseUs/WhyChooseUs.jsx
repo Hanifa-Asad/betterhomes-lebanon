@@ -2,14 +2,9 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { 
-  FaGlobe, 
-  FaBalanceScale, 
-  FaChartLine, 
-  FaShieldAlt, 
-  FaAward,
-  FaUsers,
+
   FaCheckCircle,
-  FaStar
+
 } from 'react-icons/fa';
 import { benefitsData } from '../../data/constants';
 import { fadeInUp, staggerContainer, scaleIn } from '../../animations';

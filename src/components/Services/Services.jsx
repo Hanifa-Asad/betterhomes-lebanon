@@ -13,8 +13,7 @@ import {
   FaCogs, 
   FaShieldAlt,
   FaLightbulb, 
-  FaClipboardCheck, 
-  FaMoneyBillWave, 
+
   FaHeadset,
   FaChevronRight, 
   FaArrowRight,
