@@ -387,7 +387,7 @@
     max-width: 300px;
     justify-content: center;
     /* padding: 12px 25px; */
-    padding: 20px 53px;
+    padding: 12px 25px;
     font-size: 1rem;
   }
   
@@ -410,11 +410,11 @@
 
 @media (max-width: 480px) {
   .hero-title {
-    font-size: 1.8rem;
+    font-size: 1rem;
   }
   
   .hero-subtitle {
-    font-size: 0.85rem;
+    font-size: 0.4rem;
   }
   
   .coming-soon-badge {
@@ -422,11 +422,11 @@
   }
   
   .badge-text {
-    font-size: 0.75rem;
+    font-size: 0.55rem;
   }
   
   .badge-year {
-    font-size: 0.85rem;
+    font-size: 0.65rem;
   }
   
   .hero-stats {

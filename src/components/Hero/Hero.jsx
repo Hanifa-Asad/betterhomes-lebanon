@@ -133,7 +133,7 @@ const Hero = ({ scrollY }) => {
             animate={textControls}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            Professional Property & Facilities Management – 
+            Professional Property & Facilities Management –  
             <motion.span 
               className="highlight-text"
               animate={{ 
